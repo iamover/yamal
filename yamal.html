@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ЯМАЛ — парикмахерская в Казани</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #ffffff;
+    --ice: #eaf6fc;
+    --ice-2: #dcf0fa;
+    --deep: #0b3350;
+    --ink: #0e2635;
+    --ink-dim: #5b7386;
+    --ink-faint: #93a7b4;
+    --blue: #17a3de;
+    --blue-deep: #0c86b8;
+    --gold: #ffb100;
+    --line: rgba(14,38,53,0.10);
+    --line-soft: rgba(14,38,53,0.06);
+    --radius: 22px;
+  }
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+  body{ margin:0; background: var(--bg); color: var(--ink); font-family:'Manrope', sans-serif; font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a{ color: inherit; }
+  img{ max-width:100%; display:block; }
+  .wrap{ max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+  h1,h2,h3{ font-family:'Unbounded', sans-serif; font-weight: 800; letter-spacing: -0.01em; margin:0; color: var(--deep); }
+  .eyebrow{ font-family:'Manrope', sans-serif; font-weight: 700; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue-deep); }
+  :focus-visible{ outline: 3px solid var(--blue); outline-offset: 3px; border-radius: 4px; }
+
+  /* ---------- NAV ---------- */
+  .nav{ position: fixed; top:0; left:0; right:0; z-index: 50; background: rgba(255,255,255,0.88); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line-soft); }
+  .nav-inner{ max-width: 1180px; margin: 0 auto; padding: 14px 28px; display:flex; align-items:center; justify-content: space-between; position:relative; }
+  .nav-brand{ display:flex; align-items:center; gap:10px; text-decoration:none; }
+  .nav-brand img{ width:38px; height:38px; }
+  .nav-brand span{ font-family:'Unbounded', sans-serif; font-weight:800; font-size: 19px; color: var(--deep); }
+  .nav-links{ display:flex; gap: 30px; list-style:none; margin:0; padding:0; font-weight:600; font-size: 14.5px; }
+  .nav-links a{ text-decoration:none; color: var(--ink-dim); border-bottom: 2px solid transparent; padding-bottom: 3px; transition: color .2s, border-color .2s; }
+  .nav-links a:hover, .nav-links a:focus-visible{ color: var(--deep); border-color: var(--blue); }
+  .nav-cta{ font-weight:700; font-size: 14px; text-decoration:none; color:#fff; background: var(--blue); padding: 11px 20px; border-radius: 999px; transition: background .2s ease, transform .2s ease; }
+  .nav-cta:hover{ background: var(--blue-deep); transform: translateY(-1px); }
+  .nav-burger{ display:none; background:#fff; border: 1px solid var(--line); color: var(--deep); font-weight:700; font-size: 13px; padding: 9px 16px; border-radius: 999px; cursor:pointer; }
+  .nav-links.open{ display:flex; }
+
+  /* ---------- HERO ---------- */
+  .hero{ padding: 150px 0 90px; }
+  .hero-grid{ display:grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items:center; }
+  .badge-row{ display:flex; flex-wrap:wrap; gap: 10px; margin-bottom: 22px; }
+  .pill{ display:inline-flex; align-items:center; gap:7px; background: var(--ice); color: var(--deep); font-weight:700; font-size: 13.5px; padding: 8px 16px; border-radius: 999px; }
+  .pill b{ color: var(--gold); }
+  .hero h1{ font-size: clamp(56px, 8vw, 96px); line-height: 0.94; }
+  .hero-tagline{ margin-top: 20px; max-width: 480px; font-size: 18px; color: var(--ink-dim); }
+  .hero-actions{ margin-top: 34px; display:flex; align-items:center; gap: 20px; flex-wrap: wrap; }
+  .btn-primary{ font-weight:700; font-size: 15px; text-decoration:none; color:#fff; background: var(--blue); padding: 16px 28px; border-radius: 999px; display:inline-flex; align-items:center; gap:10px; transition: transform .2s ease, background .2s ease, box-shadow .2s ease; box-shadow: 0 14px 28px -12px rgba(23,163,222,0.55); }
+  .btn-primary:hover{ background: var(--blue-deep); transform: translateY(-2px); }
+  .btn-ghost{ font-weight:700; font-size: 14.5px; text-decoration:none; color: var(--deep); }
+  .btn-ghost span{ color: var(--ink-faint); font-weight:500; }
+
+  .hero-photo{ position:relative; }
+  .hero-photo-frame{ border-radius: var(--radius); overflow:hidden; aspect-ratio: 4/5; box-shadow: 0 30px 60px -24px rgba(11,51,80,0.35); }
+  .hero-photo-frame img{ width:100%; height:100%; object-fit:cover; object-position: center 35%; }
+  .hero-sticker{ position:absolute; bottom:-22px; left:-22px; width:118px; height:118px; background:#fff; border-radius:50%; box-shadow: 0 16px 30px -10px rgba(11,51,80,0.35); padding:8px; }
+  .hero-sticker img{ width:100%; height:100%; object-fit:contain; }
+
+  /* ice-crack divider */
+  .ice-divider{ width:100%; height: 34px; display:block; }
+
+  section{ padding: 96px 0; }
+  .section-head{ margin-bottom: 48px; max-width: 620px; }
+  .section-head h2{ font-size: clamp(32px, 4.4vw, 46px); margin-top: 10px; }
+  .section-head p{ color: var(--ink-dim); margin-top: 14px; font-size: 16.5px; }
+
+  /* ---------- SERVICES / PRICES ---------- */
+  .services{ background: var(--ice); }
+  .tabs{ display:flex; gap: 10px; margin-bottom: 34px; flex-wrap:wrap; }
+  .tab-btn{ font-family:'Manrope'; font-weight:700; font-size: 14.5px; padding: 12px 22px; border-radius: 999px; border: 1px solid var(--line); background:#fff; color: var(--ink-dim); cursor:pointer; transition: all .2s ease; }
+  .tab-btn.active{ background: var(--deep); color:#fff; border-color: var(--deep); }
+  .tab-panel{ display:none; }
+  .tab-panel.active{ display:block; }
+  .price-group{ background:#fff; border-radius: var(--radius); padding: 8px 28px; margin-bottom: 22px; }
+  .price-group h4{ font-family:'Unbounded'; font-size: 14px; color: var(--blue-deep); padding: 20px 0 4px; margin:0; }
+  .price-row{ display:flex; justify-content:space-between; align-items:flex-start; gap: 20px; padding: 18px 0; border-top: 1px solid var(--line-soft); }
+  .price-row:first-of-type{ border-top: none; }
+  .price-name{ font-weight:700; color: var(--deep); font-size: 15.5px; }
+  .price-note{ margin-top: 4px; color: var(--ink-faint); font-size: 13px; max-width: 46ch; }
+  .price-value{ font-family:'Unbounded'; font-weight:700; font-size: 16px; color: var(--ink); white-space:nowrap; }
+  .price-footnote{ margin-top: 18px; color: var(--ink-faint); font-size: 13px; }
+
+  /* ---------- PORTFOLIO ---------- */
+  .portfolio-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .portfolio-grid .tall{ grid-row: span 2; }
+  .p-card{ position:relative; border-radius: var(--radius); overflow:hidden; background: var(--ice); }
+  .p-card img{ width:100%; height:100%; object-fit:cover; transition: transform .5s ease; }
+  .p-card:hover img{ transform: scale(1.04); }
+  .p-card.short img{ aspect-ratio: 4/3; }
+  .p-card.tall img{ aspect-ratio: 3/4.6; height:100%; }
+  .p-tag{ position:absolute; left:14px; bottom:14px; background: rgba(11,51,80,0.82); color:#fff; font-weight:700; font-size: 12.5px; padding: 7px 14px; border-radius: 999px; backdrop-filter: blur(4px); }
+
+  /* ---------- AWARD ---------- */
+  .award{ background: var(--deep); color:#fff; }
+  .award-grid{ display:grid; grid-template-columns: 0.85fr 1.15fr; gap: 52px; align-items:center; }
+  .award-photo{ border-radius: var(--radius); overflow:hidden; }
+  .award-photo img{ width:100%; display:block; }
+  .award h2{ color:#fff; font-size: clamp(28px, 3.6vw, 40px); }
+  .award p{ color: rgba(255,255,255,0.78); margin-top: 16px; font-size: 16.5px; max-width: 46ch; }
+  .award .eyebrow{ color: var(--gold); }
+
+  /* ---------- REVIEWS ---------- */
+  .reviews-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items:stretch; }
+  .review-card{ background: var(--ice); border-radius: var(--radius); padding: 26px 24px; display:flex; flex-direction:column; height:100%; }
+  .review-stars{ color: var(--gold); letter-spacing: 2px; font-size:14px; }
+  .review-text{ flex:1 1 auto; margin: 14px 0 0; color: var(--ink-dim); font-size: 15px; line-height:1.62; }
+  .review-meta{ display:flex; justify-content:space-between; align-items:baseline; margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(14,38,53,0.10); font-size: 13px; color: var(--ink-faint); }
+  .review-meta b{ color: var(--deep); font-size: 14.5px; }
+
+  /* ---------- BOOKING CTA ---------- */
+  .booking{ background: var(--ice); }
+  .booking-card{ background:#fff; border-radius: 28px; padding: 52px; display:grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items:center; box-shadow: 0 30px 60px -30px rgba(11,51,80,0.25); }
+  .booking-card h2{ font-size: clamp(28px, 3.6vw, 40px); }
+  .booking-card p{ color: var(--ink-dim); margin-top: 14px; font-size: 16px; max-width: 44ch; }
+  .contact-list{ display:flex; flex-direction:column; gap: 12px; }
+  .contact-list a{ display:flex; align-items:center; justify-content:space-between; text-decoration:none; background: var(--ice); color: var(--deep); font-weight:700; font-size: 14px; padding: 14px 18px; border-radius: 14px; transition: background .2s ease; }
+  .contact-list a:hover{ background: var(--ice-2); }
+  .contact-list a span{ color: var(--ink-faint); font-weight:500; }
+
+  /* ---------- FOOTER ---------- */
+  footer{ padding: 64px 0 34px; background: var(--deep); color: rgba(255,255,255,0.72); }
+  .footer-grid{ display:grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 40px; padding-bottom: 44px; }
+  .footer-brand{ display:flex; align-items:center; gap:10px; }
+  .footer-brand img{ width:36px; height:36px; }
+  .footer-brand span{ font-family:'Unbounded'; font-weight:800; font-size: 20px; color:#fff; }
+  .footer-note{ margin-top:16px; font-size: 13.5px; max-width: 42ch; color: rgba(255,255,255,0.55); }
+  .footer-col h4{ font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin: 0 0 14px; font-weight:700; }
+  .footer-col p, .footer-col a{ display:block; text-decoration:none; color: rgba(255,255,255,0.78); margin-bottom: 9px; font-size: 14.5px; }
+  .footer-col a:hover{ color: var(--gold); }
+  .footer-bottom{ padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.14); display:flex; justify-content: space-between; font-size: 12.5px; color: rgba(255,255,255,0.45); flex-wrap:wrap; gap: 10px; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 980px){
+    .hero-grid{ grid-template-columns: 1fr; gap: 60px; }
+    .hero-photo-frame{ aspect-ratio: 16/10; }
+    .award-grid{ grid-template-columns: 1fr; gap: 32px; }
+    .portfolio-grid{ grid-template-columns: repeat(2, 1fr); }
+    .portfolio-grid .tall img{ aspect-ratio: 4/3; height:auto; }
+    .reviews-grid{ grid-template-columns: 1fr; }
+    .booking-card{ grid-template-columns: 1fr; padding: 38px; }
+    .footer-grid{ grid-template-columns: 1fr; gap: 30px; }
+  }
+  @media (max-width: 720px){
+    .nav-links{
+      display:none; flex-direction:column; gap:0;
+      position:absolute; top:100%; left:0; right:0;
+      background:#fff; border-top: 1px solid var(--line-soft); padding: 6px 0;
+    }
+    .nav-links a{ display:block; padding:15px 28px; border-bottom:1px solid var(--line-soft); }
+    .nav-burger{ display:inline-flex; }
+    .nav-cta{ display:none; }
+    .hero{ padding: 120px 0 60px; }
+    section{ padding: 70px 0; }
+    .price-group{ padding: 6px 20px; }
+    .portfolio-grid{ grid-template-columns: 1fr 1fr; gap: 12px; }
+    .booking-card{ padding: 28px; border-radius: 22px; }
+  }
+
+  .reveal{ opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="#top">
+      <img src="images/logo.png" alt="Ямал">
+      <span>ЯМАЛ</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#services">Услуги</a></li>
+      <li><a href="#works">Работы</a></li>
+      <li><a href="#reviews">Отзывы</a></li>
+      <li><a href="#booking">Контакты</a></li>
+    </ul>
+    <a class="nav-cta" href="https://n1309393.yclients.com/company/808175/personal/select-master?o=" target="_blank" rel="noopener">Записаться</a>
+    <button class="nav-burger" id="navBurger" aria-expanded="false" aria-controls="navLinks">Меню</button>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div class="reveal">
+      <div class="badge-row">
+        <div class="pill"><b>★ 5.0</b> · 411 оценок</div>
+        <div class="pill">🏆 Премия 2ГИС 2023</div>
+      </div>
+      <h1>ЯМАЛ</h1>
+      <p class="hero-tagline">Парикмахерская в Казани: стрижки, окрашивание и укладки — аккуратно, стерильно и по-настоящему внимательно к тому, что вы просите.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="https://n1309393.yclients.com/company/808175/personal/select-master?o=" target="_blank" rel="noopener">→ Записаться онлайн</a>
+        <a class="btn-ghost" href="tel:+78437178218">+7 (843) 717-82-18 <span>· ул. Энергетиков, 3</span></a>
+      </div>
+    </div>
+    <div class="hero-photo reveal">
+      <div class="hero-photo-frame">
+        <img src="images/interior.jpg" alt="Интерьер парикмахерской Ямал">
+      </div>
+      <div class="hero-sticker"><img src="images/logo.png" alt=""></div>
+    </div>
+  </div>
+</header>
+
+<svg class="ice-divider" viewBox="0 0 1200 34" preserveAspectRatio="none" aria-hidden="true">
+  <polyline points="0,10 60,10 90,26 150,4 210,18 270,8 330,22 390,6 450,16 510,4 570,20 630,8 690,18 750,6 810,22 870,10 930,18 990,6 1050,20 1110,8 1170,16 1200,10"
+    fill="none" stroke="#eaf6fc" stroke-width="3"/>
+</svg>
+
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Прайс-лист</span>
+      <h2>Услуги и цены</h2>
+      <p>Стоимость окончательно определяется мастером на месте — зависит от длины и структуры волос.</p>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="men">Мужской зал</button>
+      <button class="tab-btn" data-tab="women">Женский зал</button>
+      <button class="tab-btn" data-tab="color">Окрашивание</button>
+    </div>
+
+    <div class="tab-panel active" id="tab-men">
+      <div class="price-group">
+        <div class="price-row"><div><div class="price-name">Наголо</div></div><div class="price-value">300 ₽</div></div>
+        <div class="price-row"><div><div class="price-name">Под одну насадку</div></div><div class="price-value">300 ₽</div></div>
+        <div class="price-row"><div><div class="price-name">Окантовка (без перехода)</div></div><div class="price-value">300 ₽</div></div>
+        <div class="price-row"><div><div class="price-name">Модельная ножницами</div><div class="price-note">В услугу входит мытьё головы.</div></div><div class="price-value">700 ₽</div></div>
+        <div class="price-row"><div><div class="price-name">Модельная с нуля</div><div class="price-note">В услугу входит мытьё головы.</div></div><div class="price-value">700 ₽</div></div>
+        <div class="price-row"><div><div class="price-name">Модельная</div><div class="price-note">В услугу входит мытьё головы.</div></div><div class="price-value">600 ₽</div></div>
+        <div class="price-row"><div><div class="price-name">Камуфляж седины</div></div><div class="price-value">950 ₽</div></div>
+      </div>
+      <p class="price-footnote">* Цена зависит от длины и сложности волос и окончательно определяется мастером.</p>
+    </div>
+
+    <div class="tab-panel" id="tab-women">
+      <div class="price-group">
+        <div class="price-row"><div><div class="price-name">Оформление чёлки</div></div><div class="price-value">300 ₽</div></div>
+        <div class="price-row"><div><div class="price-name">Подравнивание длины</div><div class="price-note">В услугу не входит мытьё головы.</div></div><div class="price-value">500 ₽</div></div>
+        <div class="price-row"><div><div class="price-name">Стрижка «Каскад»</div><div class="price-note">В услугу не входит мытьё головы.</div></div><div class="price-value">800 ₽</div></div>
+        <div class="price-row"><div><div class="price-name">Стрижка «Каре»</div><div class="price-note">В услугу не входит мытьё головы.</div></div><div class="price-value">700 ₽</div></div>
+        <div class="price-row"><div><div class="price-name">Короткая модельная</div><div class="price-note">В услугу не входит мытьё головы.</div></div><div class="price-value">500 ₽</div></div>
+        <div class="price-row"><div><div class="price-name">Укладка (мытьё + сушка)</div><div class="price-note">В услугу входит мытьё головы.</div></div><div class="price-value">1000 ₽</div></div>
+      </div>
+      <p class="price-footnote">* Цена зависит от длины и сложности волос и окончательно определяется мастером.</p>
+    </div>
+
+    <div class="tab-panel" id="tab-color">
+      <div class="price-group">
+        <h4>Окрашивание до 35 см</h4>
+        <div class="price-row"><div><div class="price-name">Окрашивание в один тон</div></div><div class="price-value">3700 ₽</div></div>
+        <div class="price-row"><div><div class="price-name">Мелирование</div></div><div class="price-value">4900 ₽</div></div>
+        <div class="price-row"><div><div class="price-name">Сложное окрашивание</div></div><div class="price-value">4900 ₽</div></div>
+        <div class="price-row"><div><div class="price-name">Окрашивание корней</div></div><div class="price-value">2200 ₽</div></div>
+      </div>
+      <div class="price-group">
+        <h4>Окрашивание от 35 см</h4>
+        <div class="price-row"><div><div class="price-name">Окрашивание в один тон</div></div><div class="price-value">4400 ₽</div></div>
+        <div class="price-row"><div><div class="price-name">Мелирование</div></div><div class="price-value">6600 ₽</div></div>
+        <div class="price-row"><div><div class="price-name">Сложное окрашивание</div></div><div class="price-value">6600 ₽</div></div>
+      </div>
+      <p class="price-footnote">* Цена указана без учёта материалов, зависит от длины и сложности волос и окончательно определяется мастером.</p>
+    </div>
+  </div>
+</section>
+
+<section id="works">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Портфолио</span>
+      <h2>Наши работы</h2>
+      <p>Стрижки и окрашивания, которые мастера сделали в салоне за последнее время.</p>
+    </div>
+    <div class="portfolio-grid">
+      <div class="p-card tall reveal">
+        <img src="images/work-women-2.jpg" alt="Окрашивание в яркий красный цвет">
+        <div class="p-tag">Окрашивание</div>
+      </div>
+      <div class="p-card short reveal">
+        <img src="images/work-women-1.jpg" alt="Женская стрижка с окрашиванием, вид сзади">
+        <div class="p-tag">Женская стрижка</div>
+      </div>
+      <div class="p-card short reveal">
+        <img src="images/work-men-2.jpg" alt="Мужская стрижка">
+        <div class="p-tag">Мужская стрижка</div>
+      </div>
+      <div class="p-card short reveal">
+        <img src="images/work-women-3.jpg" alt="Женская стрижка с чёлкой и мелированием">
+        <div class="p-tag">Женская стрижка</div>
+      </div>
+      <div class="p-card short reveal">
+        <img src="images/work-men-1.jpg" alt="Мужская стрижка, вид сбоку">
+        <div class="p-tag">Мужская стрижка</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="award">
+  <div class="wrap award-grid">
+    <div class="award-photo reveal">
+      <img src="images/award.jpg" alt="Премия 2ГИС 2023 — лучшая парикмахерская Московского района">
+    </div>
+    <div class="reveal">
+      <span class="eyebrow">Признание</span>
+      <h2 style="margin-top:10px;">Премия 2ГИС 2023 года</h2>
+      <p>«ЯМАЛ» признан лучшей парикмахерской Московского района Казани по версии 2ГИС — это выбор пользователей, основанный на реальных отзывах и оценках салона.</p>
+    </div>
+  </div>
+</section>
+
+<section id="reviews">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Отзывы</span>
+      <h2>Что говорят наши гости</h2>
+      <p>Реальные отзывы — 5.0 из 411 оценок.</p>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Очень хорошая парикмахерская, очень приятная атмосфера. Хочу поблагодарить мастера Оксану за отличную стрижку — она внимательно выслушала пожелания, предложила свои варианты, в итоге получилась отличная стрижка. Буду ходить теперь только к ней, всем рекомендую!</p>
+        <div class="review-meta"><b>Степан Казаков</b><span>14 февраля</span></div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">В этой парикмахерской знают, как правильно стричь! Приятная девушка на ресепшене, опытный мастер, которая не боится экспериментировать и может сделать стрижку по эскизу, который вам нужен. Тишина и чистота в салоне — отдельный плюс ❤️</p>
+        <div class="review-meta"><b>Динара Лукманова</b><span>18 февраля</span></div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Отличная парикмахерская, постоянно хожу сюда — всегда чисто и уютно. Есть удобная запись онлайн. Записываюсь к мастеру Яне, стрижкой всегда остаюсь доволен, как процессом, так и результатом. Мастер стрижёт быстро, качественно и профессионально.</p>
+        <div class="review-meta"><b>Плотников Алексей</b><span>13 февраля 2025</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="booking" id="booking">
+  <div class="wrap">
+    <div class="booking-card reveal">
+      <div>
+        <span class="eyebrow">Записаться</span>
+        <h2 style="margin-top:10px;">Готовы к переменам?</h2>
+        <p>Выберите мастера и удобное время онлайн — это займёт пару минут, либо позвоните и запишитесь по телефону.</p>
+        <div class="hero-actions" style="margin-top:28px;">
+          <a class="btn-primary" href="https://n1309393.yclients.com/company/808175/personal/select-master?o=" target="_blank" rel="noopener">→ Записаться онлайн</a>
+        </div>
+      </div>
+      <div class="contact-list">
+        <a href="tel:+78437178218">Салон <span>+7 (843) 717-82-18</span></a>
+        <a href="tel:+79520320989">Администратор <span>+7 (952) 032-09-89</span></a>
+        <a href="https://t.me/yamal_kzn" target="_blank" rel="noopener">Написать в Telegram <span>ЛС</span></a>
+        <a href="https://vk.ru/yamal_kazan" target="_blank" rel="noopener">ВКонтакте <span>→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand"><img src="images/logo.png" alt="Ямал"><span>ЯМАЛ</span></div>
+        <p class="footer-note">Парикмахерская в Казани. Стрижки, окрашивание и укладки для мужчин и женщин — аккуратно, стерильно и по вашему запросу.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Адрес</h4>
+        <p>ул. Энергетиков, 3<br>Казань</p>
+        <a href="https://yandex.ru/maps/?text=Казань%20ул.%20Энергетиков%203" target="_blank" rel="noopener">Открыть на Яндекс.Картах →</a>
+      </div>
+      <div class="footer-col">
+        <h4>Связь</h4>
+        <a href="https://t.me/yamal_kzn" target="_blank" rel="noopener">Telegram (ЛС)</a>
+        <a href="https://t.me/yamal_kazan" target="_blank" rel="noopener">Telegram-канал</a>
+        <a href="https://max.ru/u/f9LHodD0cOJN_3DEKbelN0xsfpZ5SvLdropLaUzu6qH-BNHEHt53VPM_fbY" target="_blank" rel="noopener">MAX</a>
+        <a href="https://vk.ru/yamal_kazan" target="_blank" rel="noopener">ВКонтакте</a>
+        <a href="https://ok.ru/group/70000001818886" target="_blank" rel="noopener">Одноклассники</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 ЯМАЛ</span>
+      <span>★ 5.0 · 411 оценок · Премия 2ГИС 2023</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    // reveal on scroll
+    var items = document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)){
+      items.forEach(function(el){ el.classList.add('in'); });
+    } else {
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            entry.target.classList.add('in');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      items.forEach(function(el){ io.observe(el); });
+    }
+
+    // mobile nav
+    var burger = document.getElementById('navBurger');
+    var links = document.getElementById('navLinks');
+    if(burger && links){
+      burger.addEventListener('click', function(){
+        var isOpen = links.classList.toggle('open');
+        burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+      links.querySelectorAll('a').forEach(function(a){
+        a.addEventListener('click', function(){
+          links.classList.remove('open');
+          burger.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+
+    // price tabs
+    var tabBtns = document.querySelectorAll('.tab-btn');
+    tabBtns.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var target = btn.getAttribute('data-tab');
+        tabBtns.forEach(function(b){ b.classList.remove('active'); });
+        document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+        btn.classList.add('active');
+        document.getElementById('tab-' + target).classList.add('active');
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
